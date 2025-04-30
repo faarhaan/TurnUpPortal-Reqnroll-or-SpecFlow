@@ -6,11 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Internal;
 using TurnUpPortal_Reqnroll_or_SpecFlow.Utilites;
 
 namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
 {
-    public class TMpage
+    public class TMpage : CommonDriver
     {
         public void CreateTimeRecord(IWebDriver driver)
         {
@@ -56,41 +57,40 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
             Thread.Sleep(9000);
-            try
-            {
-                IWebElement NewCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-                Assert.That(NewCode.Text == "123A", "Time Record is not created! Test is Failed");
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("NewCode is not found");
-            }
-
-            //if (NewCode.Text == "123A")
-            //{
-            //    Assert.Pass("new Time Record is created! Test is passed");
-            //}                                                   
-            //else
-            //{
-            //    Assert.Fail("Time Record is not created! Test is Failed");
-            //}
 
         }
-        public void EditTimeRecord(IWebDriver driver)
+        public String GetCode(IWebDriver driver)
+        {
+              IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            return newCode.Text;
+        }
+        public String GetDescription(IWebDriver driver)
+        {
+            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            return newDescription.Text;
+        }
+        public String GetPrice(IWebDriver driver) 
+        {
+            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
+                return newPrice.Text;
+
+        }
+
+        public void EditTimeRecord(IWebDriver driver, String Code)
         {   Thread.Sleep(3000);
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
-            Thread.Sleep(4000);
+            Thread.Sleep(15000);
 
            //  Edit the Time Record
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editButton.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(8000);
 
             // Identify Code Text box and change text to TA-FAR
             IWebElement editCodeText = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
             editCodeText.Clear();
-            editCodeText.SendKeys("TA-FAR");
+            editCodeText.SendKeys(Code);
 
             // Identify Description text box and enter description
             IWebElement descriptionTextBoxM = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
@@ -113,18 +113,23 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
             Thread.Sleep(8000);
 
             // Validate if Time Record is Edited or Not
+            //IWebElement EditedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+
+            //if (EditedCode.Text == "TA-FAR")
+            //{
+            //    Console.WriteLine("Time Record is Successfully Edited! Test is Passed!");
+            //}
+            //else
+
+            //{
+            //    Console.WriteLine("Time Record is not Edited! Test is Failed");
+            //}
+
+        }
+        public String GeteditedCode(IWebDriver driver)
+        {
             IWebElement EditedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
-
-            if (EditedCode.Text == "TA-FAR")
-            {
-                Console.WriteLine("Time Record is Successfully Edited! Test is Passed!");
-            }
-            else
-
-            {
-                Console.WriteLine("Time Record is not Edited! Test is Failed");
-            }
-
+            return EditedCode.Text;
         }
         public void DeleteTimeRecord(IWebDriver driver)
         {

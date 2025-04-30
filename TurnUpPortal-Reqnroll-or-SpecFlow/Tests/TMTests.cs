@@ -41,11 +41,11 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Tests
             tMpageObj.CreateTimeRecord(driver);
         }
         [Test, Order(2), Description("This test update the Time/Material record with valid details")]
-        public void EditTime_Test()
+        public void EditTime_Test(IWebDriver driver, String Code)
         {
             // Edit Time Record
             TMpage tMpageObj = new TMpage();
-            tMpageObj.EditTimeRecord(driver);
+            tMpageObj.EditTimeRecord(driver, Code);
         }
         [Test, Order(3)]
         public void DeleteTime_Test()

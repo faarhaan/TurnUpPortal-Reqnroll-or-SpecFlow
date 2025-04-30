@@ -17,7 +17,7 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
         {
             // Step-2   Launch Turnup Portal
             driver.Navigate().GoToUrl("http://horse.industryconnect.io");
-            Thread.Sleep(4000);
+            Thread.Sleep(7000);
             driver.Manage().Window.Maximize();
             Thread.Sleep(1000);
 
