@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Internal;
@@ -29,6 +30,7 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
             // Identify Dropdown  and select Time option
             IWebElement timeDropdownOPtion = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[1]/div/span[1]/span/span[2]/span"));
             timeDropdownOPtion.Click();
+            Thread.Sleep(1000);
             IWebElement timeOption = driver.FindElement(By.XPath("//*[@id=\"TypeCode_listbox\"]/li[2]"));
             timeOption.Click();
 
@@ -50,7 +52,7 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
             // Click on Save Button
             IWebElement saveButton = driver.FindElement(By.Id("SaveButton"));
             saveButton.Click();
-            Thread.Sleep(9000);
+            Thread.Sleep(5000);
 
             //Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[4]/a[4]/span", 9);
             //Check if Time Record is created successfully or not 
@@ -61,7 +63,7 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
         }
         public String GetCode(IWebDriver driver)
         {
-              IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement newCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             return newCode.Text;
         }
         public String GetDescription(IWebDriver driver)
@@ -77,15 +79,16 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
         }
 
         public void EditTimeRecord(IWebDriver driver, String Code)
-        {   Thread.Sleep(3000);
+        {   
+            Thread.Sleep(9000);
             IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
             goToLastPageButton.Click();
-            Thread.Sleep(15000);
+            Thread.Sleep(8000);
 
            //  Edit the Time Record
             IWebElement editButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[5]/a[1]"));
             editButton.Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
 
             // Identify Code Text box and change text to TA-FAR
             IWebElement editCodeText = driver.FindElement(By.XPath("//*[@id=\"Code\"]"));
@@ -110,7 +113,7 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
             // Identify Save Button and click on it
             IWebElement saveButtonclick = driver.FindElement(By.Id("SaveButton"));
             saveButtonclick.Click();
-            Thread.Sleep(8000);
+            Thread.Sleep(5000);
 
             // Validate if Time Record is Edited or Not
             //IWebElement EditedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
@@ -128,6 +131,11 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.Pages
         }
         public String GeteditedCode(IWebDriver driver)
         {
+            // imp point goto last page before getting code of last page
+            Thread.Sleep(5000);
+            IWebElement goToLastPageButton = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[4]/a[4]/span"));
+            goToLastPageButton.Click();
+            Thread.Sleep(5000);
             IWebElement EditedCode = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[1]"));
             return EditedCode.Text;
         }

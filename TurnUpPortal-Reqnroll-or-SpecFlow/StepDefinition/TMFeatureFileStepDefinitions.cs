@@ -73,10 +73,10 @@ namespace TurnUpPortal_Reqnroll_or_SpecFlow.StepDefinition
            string editedCode = tMpageObj.GeteditedCode(driver);
            Assert.That(editedCode == Code, "Expected Edited code doesnot match with Actual Edited code");
         }
-        [AfterScenario]
-        public void CloseTestRun()
-        {
-            driver.Quit();
-        }
+        //[AfterScenario]
+        //public void CloseTestRun()
+        //{
+        //    driver.Quit();
+        //}
     }
 }
